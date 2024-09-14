@@ -1,6 +1,6 @@
 // backend/routes/userRoutes.js
 import express from 'express';
-import User from '../models/userModel.js';
+import User from '../models/user.model.js';
 
 const router = express.Router();
 
@@ -28,3 +28,10 @@ router.post('/', async (req, res) => {
 });
 
 export default router;
+// Now we have a userRoutes.js file that contains the routes for getting all users and creating a new user. We import the User model from user.model.js and use it to interact with the database.
+
+// The routes are defined using router.get() and router.post() functions. The first argument is the route path, and the second argument is an async function that handles the request and response.
+
+// We export the router at the end of the file so that it can be used in the server.js file to define the API routes.
+
+// Step 3: Using the User Routes in the Server File

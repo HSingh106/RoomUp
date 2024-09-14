@@ -1,4 +1,4 @@
-// backend/models/userModel.js
+// backend/models/user.model.js
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
@@ -20,6 +20,16 @@ const userSchema = new mongoose.Schema({
         required: true,
         default: false,
     },
+    matches: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
+    needs: [{
+        type: String,
+    }],
+    wants: [{
+        type: String,
+    }],
 });
 
 const User = mongoose.model('User', userSchema);
