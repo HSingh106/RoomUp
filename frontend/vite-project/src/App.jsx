@@ -6,6 +6,7 @@ import AboutPage from './AboutPage';
 import Login from './Login';
 import SignUp from './SignUp';
 import NewScreen from './Swiper';
+import ProfilePage from './Profile';
 import 'bootstrap/dist/css/bootstrap.min.css';  // Add Bootstrap CSS
 import Swiper from './Swiper';
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/swiper" element={<Swiper />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </Router>
   );

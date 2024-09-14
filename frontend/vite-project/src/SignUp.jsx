@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
+import image1 from './assets/image1 blur.jpg';
 
 
 const SignUpPage = () => {
@@ -33,12 +34,16 @@ const SignUpPage = () => {
       };
     
   return (
-    <div style={{backgroundColor:'#332569' }}>
+    <div style={{backgroundColor:'#332569', backgroundImage: `url(${image1})`, backgroundSize: "cover"}}>
     
+    
+
+
+
     <Container className=" d-flex justify-content-center align-items-center vh-100 ">
       <div className=" p-4 rounded shadow-sm" style={{backgroundColor:'#3f3f3f' , maxWidth: '500px', width: '100%' }}>
         <h1 className="text-left " style={{color: "coral", fontSize: "300%", fontFamily: "Inter", fontWeight: "800"}}> RoomUp</h1>
-        <h2 className="mb-4 text-center" style={{color: "coral", fontSize: "100 ", fontFamily: "Inter", fontWeight: "600"}}>Register</h2>
+        <h2 className="mb-4 text-left" style={{color: "coral", fontSize: "100 ", fontFamily: "Inter", fontWeight: "600"}}>Register</h2>
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formFirstName">
             <Form.Label style={{ color: 'coral' , fontFamily: "Inter", fontWeight: "600"}}>First Name</Form.Label>

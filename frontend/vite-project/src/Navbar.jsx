@@ -18,6 +18,7 @@ function BasicExample() {
             <NavDropdown title="Profile" id="basic-nav-dropdown">
               <NavDropdown.Item href="/login">Login</NavDropdown.Item>
               <NavDropdown.Item href="/signup">Sign Up</NavDropdown.Item>
+              <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
