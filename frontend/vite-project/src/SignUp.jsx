@@ -8,7 +8,7 @@ const SignUpPage = () => {
         event.preventDefault();
     
         // Get form values
-        const username = event.target.firstname.value.trim();
+        const firstname = event.target.firstname.value.trim();
         const email = event.target.email.value.trim();
         const password = event.target.password.value.trim();
     
