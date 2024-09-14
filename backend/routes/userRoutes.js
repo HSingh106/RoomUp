@@ -1,26 +1,23 @@
 // backend/routes/userRoutes.js
 import express from 'express';
-import { createUser, updateUserPatch, updateUserPut } from '../controllers/userController.js';
+import User from '../models/user.model.js';
+import Apartment from '../models/apartment.model.js';
+import authMiddleware from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// Example route to get all users
-router.get('/', async (req, res) => {
+// Endpoint to find users with or without apartments within a specified range
+router.get('/find-users', authMiddleware, async (req, res) => {
+    const { hasApartment, range } = req.query;
+
     try {
-        const users = await User.find({});
-        res.json(users);
+        const users = await User.find({ hasApartment: hasApartment === 'true' }).populate('apartment');
+        // Assuming you have a function to calculate distance between users
+        const filteredUsers = users.filter(user => calculateDistance(user.location, req.user.location) <= range);
+        res.json(filteredUsers);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: 'Server error' });
     }
 });
-
-// Route to create a new user
-router.post('/', createUser);
-
-// Route to update a user by ID (PATCH)
-router.patch('/:id', updateUserPatch);
-
-// Route to fully update a user by ID (PUT)
-router.put('/:id', updateUserPut);
 
 export default router;
