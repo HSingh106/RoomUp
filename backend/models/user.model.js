@@ -30,6 +30,14 @@ const userSchema = new mongoose.Schema({
     wants: [{
         type: String,
     }],
+    profileImage: {
+        type: String,
+        default: '',
+    },
+    needsApartment: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const User = mongoose.model('User', userSchema);
