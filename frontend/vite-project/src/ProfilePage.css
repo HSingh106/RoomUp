@@ -1,0 +1,14 @@
+/* Make sure this CSS file is imported in your project */
+.orange-button {
+    background-color: #ff6600; /* Replace with your specific orange color */
+    border: none;
+  }
+  
+  .orange-button:hover {
+    background-color: #ff6600; /* Darker orange for hover effect */
+  }
+  
+  .orange-button:focus, .orange-button:active {
+    background-color: #ff6600; /* Ensure the color stays consistent when clicked */
+  }
+  

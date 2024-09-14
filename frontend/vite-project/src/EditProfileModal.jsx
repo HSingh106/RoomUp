@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Form, Modal, Dropdown, DropdownButton, InputGroup, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import './EditProfileModal.css'; // Import the CSS file
 
 const EditProfileModal = ({ show, handleClose, user, updateUser }) => {
   const [formData, setFormData] = useState({
@@ -7,12 +8,19 @@ const EditProfileModal = ({ show, handleClose, user, updateUser }) => {
     email: user.email,
     bio: user.bio,
     profilePicture: user.profilePicture,
-    wants: user.wants || '',
-    needs: user.needs || '',
+    wants: user.wants || [],
+    needs: user.needs || [],
     interests: user.interests || '',
-    apartment: user.apartment || '',
+    age: user.age || '',
+    gender: user.gender || '',
+    fieldOfStudy: user.fieldOfStudy || '',
+    college: user.college || '',
   });
   const [profileImage, setProfileImage] = useState(null);
+  const [customNeed, setCustomNeed] = useState('');
+
+  const predefinedWants = ['Option 1', 'Option 2', 'Option 3']; // Replace with your predefined wants
+  const predefinedNeeds = ['Need 1', 'Need 2', 'Need 3']; // Replace with your predefined needs
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,11 +41,61 @@ const EditProfileModal = ({ show, handleClose, user, updateUser }) => {
     }
   };
 
+  const handleWantsChange = (selectedOption) => {
+    setFormData(prevData => ({
+      ...prevData,
+      wants: [...new Set([...prevData.wants, selectedOption])]
+    }));
+  };
+
+  const handleNeedsChange = (selectedOption) => {
+    setFormData(prevData => ({
+      ...prevData,
+      needs: [...new Set([...prevData.needs, selectedOption])]
+    }));
+  };
+
+  const handleCustomNeedAdd = () => {
+    if (customNeed) {
+      setFormData(prevData => ({
+        ...prevData,
+        needs: [...new Set([...prevData.needs, customNeed])]
+      }));
+      setCustomNeed('');
+    }
+  };
+
+  const handleRemoveWants = (item) => {
+    setFormData(prevData => ({
+      ...prevData,
+      wants: prevData.wants.filter(want => want !== item)
+    }));
+  };
+
+  const handleRemoveNeeds = (item) => {
+    setFormData(prevData => ({
+      ...prevData,
+      needs: prevData.needs.filter(need => need !== item)
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     updateUser(formData); // Implement this function to handle form submission
     handleClose(); // Close modal after submission
   };
+
+  const renderTooltipWants = (props) => (
+    <Tooltip id="tooltip-wants" {...props}>
+      Tags you want in a roommate
+    </Tooltip>
+  );
+
+  const renderTooltipNeeds = (props) => (
+    <Tooltip id="tooltip-needs" {...props}>
+      Dealbreaking rules for a roommate
+    </Tooltip>
+  );
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -91,23 +149,114 @@ const EditProfileModal = ({ show, handleClose, user, updateUser }) => {
               />
             )}
           </Form.Group>
-          <Form.Group controlId="formWants">
-            <Form.Label>Wants</Form.Label>
+          <Form.Group controlId="formAge">
+            <Form.Label>Age</Form.Label>
             <Form.Control
-              type="text"
-              name="wants"
-              value={formData.wants}
+              type="number"
+              name="age"
+              value={formData.age}
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group controlId="formNeeds">
-            <Form.Label>Needs</Form.Label>
+          <Form.Group controlId="formGender">
+            <Form.Label>Gender</Form.Label>
             <Form.Control
               type="text"
-              name="needs"
-              value={formData.needs}
+              name="gender"
+              value={formData.gender}
               onChange={handleChange}
             />
+          </Form.Group>
+          <Form.Group controlId="formFieldOfStudy">
+            <Form.Label>Field of Study</Form.Label>
+            <Form.Control
+              type="text"
+              name="fieldOfStudy"
+              value={formData.fieldOfStudy}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formCollege">
+            <Form.Label>College</Form.Label>
+            <Form.Control
+              type="text"
+              name="college"
+              value={formData.college}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formWants">
+            <Form.Label>
+              Wants
+              <OverlayTrigger placement="right" overlay={renderTooltipWants}>
+                <span className="ms-2">?</span>
+              </OverlayTrigger>
+            </Form.Label>
+            <DropdownButton
+              id="dropdown-wants"
+              title="Select Wants"
+              onSelect={handleWantsChange}
+              className="text-white orange-button"
+            >
+              {predefinedWants.map(option => (
+                <Dropdown.Item key={option} eventKey={option}>
+                  {option}
+                </Dropdown.Item>
+              ))}
+            </DropdownButton>
+            <div className="mt-2">
+              {formData.wants.map(want => (
+                <span
+                  key={want}
+                  className="badge bg-primary me-2"
+                  onClick={() => handleRemoveWants(want)}
+                >
+                  {want} &times;
+                </span>
+              ))}
+            </div>
+          </Form.Group>
+          <Form.Group controlId="formNeeds">
+            <Form.Label>
+              Needs
+              <OverlayTrigger placement="right" overlay={renderTooltipNeeds}>
+                <span className="ms-2">?</span>
+              </OverlayTrigger>
+            </Form.Label>
+            <DropdownButton
+              id="dropdown-needs"
+              title="Select Needs"
+              onSelect={handleNeedsChange}
+              className="text-white orange-button"
+            >
+              {predefinedNeeds.map(option => (
+                <Dropdown.Item key={option} eventKey={option}>
+                  {option}
+                </Dropdown.Item>
+              ))}
+            </DropdownButton>
+            <div className="mt-2">
+              {formData.needs.map(need => (
+                <span
+                  key={need}
+                  className="badge bg-primary me-2"
+                  onClick={() => handleRemoveNeeds(need)}
+                >
+                  {need} &times;
+                </span>
+              ))}
+            </div>
+            <InputGroup className="mt-2">
+              <Form.Control
+                type="text"
+                placeholder="Add custom need"
+                value={customNeed}
+                onChange={(e) => setCustomNeed(e.target.value)}
+              />
+              <Button variant="outline-secondary" onClick={handleCustomNeedAdd}>
+                Add
+              </Button>
+            </InputGroup>
           </Form.Group>
           <Form.Group controlId="formInterests">
             <Form.Label>Interests</Form.Label>
@@ -127,7 +276,7 @@ const EditProfileModal = ({ show, handleClose, user, updateUser }) => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" className="mt-3 orange-button">
             Save Changes
           </Button>
         </Form>

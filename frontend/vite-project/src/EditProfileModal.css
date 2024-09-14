@@ -1,0 +1,44 @@
+/* Dropdown Button Styling */
+.dropdown-toggle {
+    background-color: #f57c00; /* Orange color */
+    border-color: #f57c00;
+    color: white;
+  }
+  
+  .dropdown-toggle:focus, .dropdown-toggle:hover {
+    background-color: #e64a19; /* Darker orange for hover/focus */
+    border-color: #e64a19;
+  }
+  
+  /* Dropdown Menu and Items Styling */
+  .dropdown-menu {
+    background-color: #333; /* Dark background for dropdown menu */
+    border: 1px solid #f57c00; /* Match the button border color */
+  }
+  
+  .dropdown-item {
+    color: #fff; /* White text color */
+    background-color: #333; /* Match the menu background */
+  }
+  
+  .dropdown-item:hover, .dropdown-item:focus {
+    background-color: #555; /* Darker background on hover */
+    color: #fff;
+  }
+  
+  .dropdown-item.active, .dropdown-item:active {
+    background-color: #e64a19; /* Darker orange for active state */
+    color: #fff;
+  }
+  
+  /* Save Changes Button Styling */
+  .btn-primary {
+    background-color: #f57c00; /* Orange color */
+    border-color: #f57c00;
+  }
+  
+  .btn-primary:hover, .btn-primary:focus {
+    background-color: #e64a19; /* Darker orange for hover/focus */
+    border-color: #e64a19;
+  }
+  
