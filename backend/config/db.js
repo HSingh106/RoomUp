@@ -5,11 +5,20 @@ dotenv.config();
 
 const connectDB = async () => {
     try {
-        const conn = await mongoose.connect(process.env.MONGO_URI, {
+        const mongoURI = process.env.MONGO_URI;
+
+        // Debugging statement to check if MONGO_URI is loaded correctly
+        console.log('Mongo URI:', mongoURI);
+
+        if (!mongoURI) {
+            throw new Error('MONGO_URI is not defined in the environment variables.');
+        }
+
+        const conn = await mongoose.connect(mongoURI, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
-            useCreateIndex: true,
         });
+
         console.log(`MongoDB Connected: ${conn.connection.host}`);
     } catch (error) {
         console.error(`Error: ${error.message}`);
