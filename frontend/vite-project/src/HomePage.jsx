@@ -9,8 +9,15 @@ import ppl3 from './assets/ppl3.jpg';
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Ensure you have Bootstrap CSS imported
 import { FaSearch } from 'react-icons/fa'; // Import react-icons
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 
 const HomePage = () => {
+  const navigate = useNavigate(); // Initialize the navigate function
+
+  const handleNavigate = () => {
+    navigate('/swiper'); // Redirect to the Swiper page
+  };
+
   return (
     <div>
       {/* Hero Section */}
@@ -30,6 +37,7 @@ const HomePage = () => {
           <p className="text-lg mb-4">“Find the right apartment through the person you’re living with”</p>
           <div className="flex justify-center">
             <button 
+              onClick={handleNavigate} // Navigate to the Swiper page on click
               className="flex items-center justify-center bg-orange-600 text-white py-2 px-6 rounded-full hover:bg-orange-700 transition duration-300"
               style={{ fontSize: '1.25rem' }} // Adjust font size as needed
             >

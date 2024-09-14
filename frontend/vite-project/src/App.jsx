@@ -5,7 +5,9 @@ import HomePage from './HomePage';
 import AboutPage from './AboutPage';
 import Login from './Login';
 import SignUp from './SignUp';
+import NewScreen from './Swiper';
 import 'bootstrap/dist/css/bootstrap.min.css';  // Add Bootstrap CSS
+import Swiper from './Swiper';
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/swiper" element={<Swiper />} />
       </Routes>
     </Router>
   );
