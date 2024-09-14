@@ -6,6 +6,7 @@
     "start": "node backend/server.js"
   },
   "dependencies": {
+    "@propelauth/react": "^2.0.22",
     "bootstrap": "^5.3.3",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
