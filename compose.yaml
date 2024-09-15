@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      NODE_ENV: production
+    networks:
+      - backend-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          memory: 512M
+        limits:
+          memory: 1G
+
+networks:
+  backend-network:
+    driver: bridge
