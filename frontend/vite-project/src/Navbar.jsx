@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Image } from 'react-bootstrap';
-import profilePic from './assets/image1.jpg'; // Add your profile picture path here
+import profilePic from './assets/ppl1.jpg'; // Add your profile picture path here
 
 function BasicExample() {
   return (
@@ -28,7 +28,7 @@ function BasicExample() {
         <Navbar.Text className="d-flex align-items-center">
           <Image src={profilePic} roundedCircle style={{ width: '40px', height: '40px', marginRight: '10px' }} />
           <span className="text-white me-2">Signed in as:</span>
-          <a href="/profile" className="text-white">Mark Otto</a>
+          <a href="/profile" className="text-white">John Doe</a>
         </Navbar.Text>
       </Container>
     </Navbar>

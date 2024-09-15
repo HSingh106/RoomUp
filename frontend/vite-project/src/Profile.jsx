@@ -3,6 +3,7 @@ import { Button, Card, Container } from 'react-bootstrap';
 import EditProfileModal from './EditProfileModal'; // Import the profile modal component
 import EditApartmentModal from './EditApartmentModal'; // Import the new apartment modal component
 import backgroundImage from './assets/image1 blur.jpg';
+import profilePicture from './assets/ppl1.jpg';
 
 const ProfilePage = () => {
   const [showEditProfileModal, setShowEditProfileModal] = useState(false);
@@ -12,7 +13,7 @@ const ProfilePage = () => {
     name: 'John Doe',
     email: 'john.doe@example.com',
     bio: 'Software developer with a passion for learning new technologies and building innovative solutions.',
-    profilePicture: 'https://via.placeholder.com/150', // Replace with actual profile picture URL
+    profilePicture,
     wants: '',
     needs: '',
     interests: '',
