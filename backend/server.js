@@ -8,12 +8,16 @@ import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
+import fetch from 'node-fetch';
 
 // Load environment variables from .env file
 dotenv.config();
 
 // Connect to the MongoDB database
-connectDB();
+connectDB().catch(error => {
+    console.error('Error connecting to the database:', error);
+    process.exit(1);
+});
 
 const app = express();
 app.use(express.json()); // Middleware to parse JSON bodies
@@ -45,4 +49,6 @@ app.use('/api/auth', authRoutes); // Routes for authentication-related operation
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+}).on('error', (error) => {
+    console.error('Error starting the server:', error);
 });
