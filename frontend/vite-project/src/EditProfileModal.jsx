@@ -32,8 +32,8 @@ const EditProfileModal = ({ show, handleClose, user, updateUser }) => {
   const [profileImage, setProfileImage] = useState(null);
   const [customNeed, setCustomNeed] = useState('');
 
-  const predefinedWants = ['Option 1', 'Option 2', 'Option 3']; // Replace with your predefined wants
-  const predefinedNeeds = ['Need 1', 'Need 2', 'Need 3']; // Replace with your predefined needs
+  const predefinedWants = ['Night Owl', 'Organized', 'Videogamer']; // Replace with your predefined wants
+  const predefinedNeeds = ['No pets', 'Allergy', 'Same Gender']; // Replace with your predefined needs
 
   const handleChange = (e) => {
     const { name, value } = e.target;

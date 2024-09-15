@@ -3,12 +3,13 @@ import { Navbar, Nav, Container, Card, CardBody, Carousel, CardImg } from 'react
 import backgroundImage from './assets/image1.jpg'; 
 import buttonImage1 from './assets/buttonimage2.png'; 
 import buttonImage2 from './assets/buttonimage1.png';
-import buttonImage3 from './assets/image3.jpg';
+import buttonImage3 from './assets/swipe.png';
 import apartmentImage1 from './assets/image1.jpg'; 
 import apartmentImage2 from './assets/image2.jpg';
 import apartmentImage3 from './assets/image3.jpg';
+import apartmentImage4 from './assets/image3.jpg'; // New apartment image
 import cardImage1 from './assets/ppl1.jpg'; 
-import cardImage2 from './assets/image1.jpg';
+import cardImage2 from './assets/ppl2.jpg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import cardIcon from './assets/bed icon.png';
 import cardIcon2 from './assets/bath icon.png';
@@ -16,21 +17,22 @@ import cardIcon3 from './assets/pet icon.png';
 import cardIcon4 from './assets/furnished icon.png';
 import './Swiper.css'; // Assuming you have a CSS file for styles
 
-{/* http://localhost:5000 */ }
 const Swiper = () => {
-
-
-
-  const user = {
-
+  const [currentUser, setCurrentUser] = useState({
     name: 'John Doe',
-
-    bio: 'Software developer with a passion for learning new technologies and building innovative solutions. Looking for a clean roomate who is quite.',
-    profilePicture: cardImage1,// Replace with actual profile picture URL
+    bio: 'Software developer with a passion for learning new technologies and building innovative solutions. Looking for a clean roommate who is quiet.',
+    profilePicture: cardImage1,
     gender: 'Male',
     photos: [apartmentImage1, apartmentImage2, apartmentImage3]
+  });
 
-  };
+  const [newUser, setNewUser] = useState({
+    name: 'Jane Smith',
+    bio: 'Marketing specialist who enjoys a good book and quiet evenings. Looking for a pet-friendly apartment.',
+    profilePicture: cardImage2,
+    gender: 'Female',
+    photos: [apartmentImage4] // New apartment image
+  });
 
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isMatchPopUpVisible, setIsMatchPopUpVisible] = useState(false);
@@ -43,43 +45,28 @@ const Swiper = () => {
     setIsPopupVisible(false);
   };
 
-
-
-  const [currentUser, setCurrentUser] = useState(user);
-
   const handleSwipeUp = () => {
-
-
-
     const cardElement = document.getElementById('userCard');
     const cardElement2 = document.getElementById('extraCard');
 
     cardElement.classList.add('swipe-up');
     cardElement2.classList.add('swipe-up');
 
-
     setTimeout(() => {
       setCurrentUser(newUser);
       cardElement.classList.remove('swipe-up');
       cardElement2.classList.add('swipe-up');
-
     }, 1000); // Duration of the animation
-
-
-
   };
-  const handleMatchClick = () =>{
-    setIsMatchPopUpVisible(true);
 
+  const handleMatchClick = () => {
+    setIsMatchPopUpVisible(true);
 
     setTimeout(() => {
       setIsMatchPopUpVisible(false);
-handleSwipeUp();
+      handleSwipeUp();
     }, 2000);
-  }
-
-
-
+  };
 
   return (
     <div>
@@ -116,17 +103,13 @@ handleSwipeUp();
               className="bg-orange-500 rounded-full w-32 h-32"
               style={{
                 backgroundImage: `url(${buttonImage1})`,
-                
                 backgroundSize: '400%',
                 backgroundPosition: 'center',
                 position: "relative",
                 top: '300px',
                 left: '128px'
-
               }}
-
               onClick={handleMatchClick}
-              
             ></button>
 
             <button
@@ -137,55 +120,45 @@ handleSwipeUp();
                 backgroundPosition: 'center',
                 position: "relative",
                 top: '100px'
-
               }}
               onClick={handleButtonClick}
-
             ></button>
+
             {isPopupVisible && (
               <div className="popup">
                 <div className="popup-content">
-                  <button className="close" onClick={handleClosePopup}>&times; </button>
-
-                  <h2 style={{ color: 'black' }}> {user.name} </h2>
-
-                  <p style={{ color: 'black' }}>Gender: {user.gender}</p>
-
-                  <p style={{ color: 'black' }}>{user.bio}</p>
+                  <button className="close" onClick={handleClosePopup}>&times;</button>
+                  <h2 style={{ color: 'black' }}>{currentUser.name}</h2>
+                  <p style={{ color: 'black' }}>Gender: {currentUser.gender}</p>
+                  <p style={{ color: 'black' }}>{currentUser.bio}</p>
                 </div>
               </div>
             )}
+
             {isMatchPopUpVisible && (
               <div className="matched">
                 <div className="matched-content">
-                  
-                  <h2 style={{ color: 'black' }}> MATCHED </h2>
-
-            
+                  <h2 style={{ color: 'black' }}>MATCHED</h2>
                 </div>
               </div>
             )}
 
-
-
             <button
               id="swipeButton"
-              className="bg-orange-500 rounded-full w-32 h-32"
+              className="bg-blue-500 rounded-full w-32 h-32" // Changed to blue
               style={{
                 backgroundImage: `url(${buttonImage3})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 position: "relative",
                 top: '600px',
-                right: '128px',
+                right: '128px'
               }}
               onClick={handleSwipeUp}
             ></button>
           </div>
 
           {/* Content Cards */}
-
-
           <Container>
             <Card id="userCard" style={{ right: "100px", display: "inline-block", width: '500px', height: '650px', bottom: '20px' }}>
               <Card.Img
@@ -219,12 +192,9 @@ handleSwipeUp();
               </CardBody>
             </Card>
 
-
-
-            {/*flex card */}
-            <Card id='extraCard' style={{ left: "100px", display: "inline-block", width: '500px', height: '650px'    }}>
+            <Card id='extraCard' style={{ left: "100px", display: "inline-block", width: '500px', height: '650px' }}>
               <Carousel>
-                {user.photos.map((photo, index) => (
+                {currentUser.photos.map((photo, index) => (
                   <Carousel.Item key={index}>
                     <img
                       className="d-block w-100"
@@ -236,11 +206,8 @@ handleSwipeUp();
                 ))}
               </Carousel>
               <CardBody>
-                <Card.Title
-
-                  style={{ fontSize: '2rem', fontWeight: '700' }}
-                > 5634 8th St S Blacksburg VA
-
+                <Card.Title style={{ fontSize: '2rem', fontWeight: '700' }}>
+                  5634 8th St S Blacksburg VA
                 </Card.Title>
                 <Card.Subtitle
                   className="mb-2 text-muted"
@@ -248,51 +215,38 @@ handleSwipeUp();
                 >
                   Rent: $950/Month
                 </Card.Subtitle>
-                <CardImg className='icon1' src={cardIcon} >
-
-                </CardImg>
+                <CardImg className='icon1' src={cardIcon}></CardImg>
                 <Card.Text
                   className="mt-3"
-                  style={{ fontSize: '2rem', lineHeight: '1.5' , display: 'inline-block', margin: '20px'}}
+                  style={{ fontSize: '2rem', lineHeight: '1.5', display: 'inline-block', margin: '20px' }}
                 >
-                  2 Bed 
+                  2 Bed
                 </Card.Text>
-                <CardImg className='icon1' src={cardIcon2} >
-
-                </CardImg>
+                <CardImg className='icon1' src={cardIcon2}></CardImg>
                 <Card.Text
                   className="mt-3"
-                  style={{ fontSize: '2rem', lineHeight: '1.5', display: 'inline-block', margin: '20px'}}
+                  style={{ fontSize: '2rem', lineHeight: '1.5', display: 'inline-block', margin: '20px' }}
                 >
-                  2 Bath 
+                  2 Bath
                 </Card.Text>
-<br>
-</br>
-<CardImg className='icon1' src={cardIcon3} >
-
-                </CardImg>
+                <br></br>
+                <CardImg className='icon1' src={cardIcon3}></CardImg>
                 <Card.Text
                   className="mt-3"
-                  style={{ fontSize: '2rem', lineHeight: '1.5' , display: 'inline-block', margin: '15px'}}
+                  style={{ fontSize: '2rem', lineHeight: '1.5', display: 'inline-block', margin: '15px' }}
                 >
                   No Pets
                 </Card.Text>
-                <CardImg className='icon1' src={cardIcon4} >
-
-                </CardImg>
+                <CardImg className='icon1' src={cardIcon4}></CardImg>
                 <Card.Text
                   className="mt-3"
-                  style={{ fontSize: '1.5rem', lineHeight: '1.5', display: 'inline-block', margin: '20px'}}
+                  style={{ fontSize: '1.5rem', lineHeight: '1.5', display: 'inline-block', margin: '20px' }}
                 >
                   Unfurnished
                 </Card.Text>
               </CardBody>
-
             </Card>
-
           </Container>
-
-
         </div>
       </section>
     </div>
