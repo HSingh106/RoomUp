@@ -1,43 +1,20 @@
-import User from '../models/user.model.js';
+// backend/models/user.model.js
+import mongoose from 'mongoose';
 
-// Update a user by ID (PATCH)
-export const updateUserPatch = async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        if (user) {
-            Object.assign(user, req.body);
-            const updatedUser = await user.save();
-            res.json(updatedUser);
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-};
+const userSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    isAdmin: { type: Boolean, default: false },
+    profileImage: { type: String },
+    needsApartment: { type: Boolean, default: false },
+    state: { type: String },
+    city: { type: String },
+    matches: { type: Array },
+    needs: { type: Array },
+    wants: { type: Array },
+});
 
-// Fully update a user by ID (PUT)
-export const updateUserPut = async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id);
-        if (user) {
-            user.name = req.body.name;
-            user.email = req.body.email;
-            user.password = req.body.password;
-            user.isAdmin = req.body.isAdmin;
-            user.matches = req.body.matches;
-            user.needs = req.body.needs;
-            user.wants = req.body.wants;
-            user.profileImage = req.body.profileImage;
-            user.needsApartment = req.body.needsApartment;
-            user.state = req.body.state;
-            user.city = req.body.city;
-            const updatedUser = await user.save();
-            res.json(updatedUser);
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-};
+const User = mongoose.model('User', userSchema);
+
+export default User;

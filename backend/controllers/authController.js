@@ -17,10 +17,6 @@ export const registerUser = async (req, res) => {
         res.status(400).json({ message: 'User already exists' });
         return;
     }
-    const eduEmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[eE][dD][uU]$/;
-    if (!eduEmailRegex.test(email)) {
-        return res.status(400).json({ message: 'Registration is only allowed with a .edu email address' });
-    }
     const user = await User.create({
         name,
         email,
