@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button, Card, Container, Row, Col } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Button, Card, Container, Row, Col, Modal, Form } from 'react-bootstrap';
 import backgroundImage from './assets/image2 blur.jpg'; // Replace with your actual background image
 
 const matches = [
@@ -23,54 +23,29 @@ const matches = [
     profilePicture: 'https://via.placeholder.com/150',
     email: 'emily.davis@example.com'
   }
-  ,
-  {
-    name: 'Emily Davis',
-    profilePicture: 'https://via.placeholder.com/150',
-    email: 'emily.davis@example.com'
-  }
-  ,
-  {
-    name: 'Emily Davis',
-    profilePicture: 'https://via.placeholder.com/150',
-    email: 'emily.davis@example.com'
-  }
-  ,
-  {
-    name: 'Emily Davis',
-    profilePicture: 'https://via.placeholder.com/150',
-    email: 'emily.davis@example.com'
-  }
-  ,
-  {
-    name: 'Emily Davis',
-    profilePicture: 'https://via.placeholder.com/150',
-    email: 'emily.davis@example.com'
-  }
-  ,
-  {
-    name: 'Emily Davis',
-    profilePicture: 'https://via.placeholder.com/150',
-    email: 'emily.davis@example.com'
-  }
-  ,
-  {
-    name: 'Emily Davis',
-    profilePicture: 'https://via.placeholder.com/150',
-    email: 'emily.davis@example.com'
-  }
-  
-  ,
-  {
-    name: 'Emily Davis',
-    profilePicture: 'https://via.placeholder.com/150',
-    email: 'emily.davis@example.com'
-  }
 
   // Add more matches here
 ];
 
 const MatchesPage = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [documentText, setDocumentText] = useState('');
+
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
+
+  const handleSaveDocument = () => {
+    const blob = new Blob([documentText], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'roommate_agreement.txt';
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleTextChange = (e) => setDocumentText(e.target.value);
+
   return (
     <div
       style={{
@@ -97,13 +72,33 @@ const MatchesPage = () => {
                   <Card.Title>{match.name}</Card.Title>
                   <Button variant="primary" className="mb-2">Get in Contact</Button>
                   <div className="my-2" /> {/* Spacer between buttons */}
-                  <Button variant="secondary">Draft Roommate Agreement</Button>
+                  <Button variant="secondary" onClick={handleShowModal}>Draft Roommate Agreement</Button>
                 </Card.Body>
               </Card>
             </Col>
           ))}
         </Row>
       </Container>
+
+      {/* Modal for editing and downloading the document */}
+      <Modal show={showModal} onHide={handleCloseModal} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Roommate Agreement</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Control
+            as="textarea"
+            rows={10}
+            value={documentText}
+            onChange={handleTextChange}
+            placeholder="Enter the roommate agreement text here..."
+          />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>Close</Button>
+          <Button variant="primary" onClick={handleSaveDocument}>Download Agreement</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

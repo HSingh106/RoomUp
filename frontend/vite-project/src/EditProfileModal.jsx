@@ -1,4 +1,3 @@
-// EditProfileModal.jsx
 import React, { useState } from 'react';
 import { Button, Form, Modal, Dropdown, DropdownButton, InputGroup, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import './EditProfileModal.css'; // Import the CSS file
@@ -93,10 +92,38 @@ const EditProfileModal = ({ show, handleClose, user, updateUser }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    updateUser(formData); // Implement this function to handle form submission
-    handleClose(); // Close modal after submission
+    
+    // Prepare data for submission
+    const updatedUser = {
+      ...formData,
+      profileImage: profileImage ? URL.createObjectURL(profileImage) : formData.profilePicture
+    };
+
+    try {
+      const response = await fetch(`https://hsingh106-backend--5000.prod1.defang.dev/api/users/${user.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add any necessary authentication headers here
+        },
+        body: JSON.stringify(updatedUser),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        updateUser(data); // Update user data in parent component
+        handleClose(); // Close modal after successful update
+      } else {
+        const error = await response.json();
+        console.error('Error updating user:', error.message);
+        // Handle error (e.g., show an error message to the user)
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle network error (e.g., show an error message to the user)
+    }
   };
 
   const renderTooltipWants = (props) => (
