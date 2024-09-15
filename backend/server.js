@@ -5,9 +5,7 @@ import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 import pkg from '@propelauth/node';
-import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
-import cors from 'cors';
 import morgan from 'morgan';
 import fetch from 'node-fetch';
 
@@ -32,15 +30,7 @@ const { validateAccessTokenAndGetUserClass } = initBaseAuth({
 
 // Security middlewares
 app.use(helmet()); // Adds various security headers to the response
-app.use(cors({ origin: 'https://your-allowed-origin.com' })); // Enables CORS for the specified origin
 app.use(morgan('combined')); // Logs HTTP requests
-
-// Rate limiting middleware to limit repeated requests to public APIs
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per windowMs
-});
-app.use(limiter); // Apply the rate limiting middleware
 
 // Use routes
 app.use('/api/users', userRoutes); // Routes for user-related operations
