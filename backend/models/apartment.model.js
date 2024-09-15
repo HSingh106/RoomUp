@@ -8,7 +8,8 @@ const apartmentSchema = new mongoose.Schema({
     rentPrice: { type: Number, required: true },
     squareFeet: { type: Number, required: true },
     description: { type: String, required: true },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true } // Reference to User
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Reference to User
+    images: { type: [String] } // List of image URLs
 });
 
 const Apartment = mongoose.model('Apartment', apartmentSchema);

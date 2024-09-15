@@ -13,6 +13,29 @@ export const createUser = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+// Get a user by ID
+export const getUserById = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (user) {
+            res.json(user);
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+// Get apartments associated with a user
+export const getUserApartments = async (req, res) => {
+    try {
+        const apartments = await Apartment.find({ user: req.params.id });
+        res.json(apartments);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
 
 // Update a user by ID (PATCH)
 export const updateUserPatch = async (req, res) => {
