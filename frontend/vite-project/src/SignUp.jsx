@@ -24,6 +24,12 @@ const SignUpPage = () => {
     }
 
     if (!hasError) {
+
+
+
+      // Create a FormData object
+      const formData = new FormData(event.target);
+
       try {
         // Send form data to the server
         const response = await fetch('https://hsingh106-backend--5000.prod1.defang.dev/api/auth/register', {
@@ -63,7 +69,7 @@ const SignUpPage = () => {
               <Form.Label style={{ color: 'coral', fontFamily: 'Inter', fontWeight: '600' }}>Name</Form.Label>
               <Form.Control type="text" name="firstname" required />
             </Form.Group>
-            
+
             <Form.Group controlId="formEmail">
               <Form.Label style={{ color: 'coral', fontFamily: 'Inter', fontWeight: '600' }}>Email</Form.Label>
               <Form.Control type="email" name="email" required />
