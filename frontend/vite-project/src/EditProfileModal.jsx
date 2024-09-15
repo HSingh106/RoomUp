@@ -267,15 +267,6 @@ const EditProfileModal = ({ show, handleClose, user, updateUser }) => {
               onChange={handleChange}
             />
           </Form.Group>
-          <Form.Group controlId="formApartment">
-            <Form.Label>Apartment Information</Form.Label>
-            <Form.Control
-              type="text"
-              name="apartment"
-              value={formData.apartment}
-              onChange={handleChange}
-            />
-          </Form.Group>
           <Button variant="primary" type="submit" className="mt-3 orange-button">
             Save Changes
           </Button>
