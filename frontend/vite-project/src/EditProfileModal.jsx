@@ -1,6 +1,18 @@
+// EditProfileModal.jsx
 import React, { useState } from 'react';
 import { Button, Form, Modal, Dropdown, DropdownButton, InputGroup, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import './EditProfileModal.css'; // Import the CSS file
+
+const states = [
+  'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado',
+  'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho',
+  'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+  'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
+  'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
+  'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma',
+  'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee',
+  'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+];
 
 const EditProfileModal = ({ show, handleClose, user, updateUser }) => {
   const [formData, setFormData] = useState({
@@ -15,6 +27,8 @@ const EditProfileModal = ({ show, handleClose, user, updateUser }) => {
     gender: user.gender || '',
     fieldOfStudy: user.fieldOfStudy || '',
     college: user.college || '',
+    city: user.city || '',
+    state: user.state || ''
   });
   const [profileImage, setProfileImage] = useState(null);
   const [customNeed, setCustomNeed] = useState('');
@@ -185,6 +199,29 @@ const EditProfileModal = ({ show, handleClose, user, updateUser }) => {
               onChange={handleChange}
             />
           </Form.Group>
+          <Form.Group controlId="formCity">
+            <Form.Label>City</Form.Label>
+            <Form.Control
+              type="text"
+              name="city"
+              value={formData.city}
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group controlId="formState">
+            <Form.Label>State</Form.Label>
+            <Form.Control
+              as="select"
+              name="state"
+              value={formData.state}
+              onChange={handleChange}
+            >
+              <option value="">Select State</option>
+              {states.map(state => (
+                <option key={state} value={state}>{state}</option>
+              ))}
+            </Form.Control>
+          </Form.Group>
           <Form.Group controlId="formWants">
             <Form.Label>
               Wants
@@ -264,15 +301,6 @@ const EditProfileModal = ({ show, handleClose, user, updateUser }) => {
               type="text"
               name="interests"
               value={formData.interests}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group controlId="formApartment">
-            <Form.Label>Apartment Information</Form.Label>
-            <Form.Control
-              type="text"
-              name="apartment"
-              value={formData.apartment}
               onChange={handleChange}
             />
           </Form.Group>

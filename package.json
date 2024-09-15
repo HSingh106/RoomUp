@@ -6,6 +6,8 @@
     "start": "node backend/server.js"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "@propelauth/express": "^2.1.22",
     "@propelauth/node": "^2.1.22",
     "@propelauth/react": "^2.0.22",

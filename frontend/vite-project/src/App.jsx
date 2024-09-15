@@ -5,10 +5,10 @@ import HomePage from './HomePage';
 import AboutPage from './AboutPage';
 import Login from './Login';
 import SignUp from './SignUp';
-import NewScreen from './Swiper';
-import ProfilePage from './Profile';
-import 'bootstrap/dist/css/bootstrap.min.css';  // Add Bootstrap CSS
 import Swiper from './Swiper';
+import ProfilePage from './Profile';
+import MatchesPage from './MatchesPage'; // Import the new MatchesPage component
+import 'bootstrap/dist/css/bootstrap.min.css';  // Add Bootstrap CSS
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/swiper" element={<Swiper />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/matches" element={<MatchesPage />} />  {/* Add this route */}
       </Routes>
     </Router>
   );
