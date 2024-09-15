@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
-import backgroundImage from './assets/image1.jpg'; // Replace with your actual background image
+import backgroundImage from './assets/image2 blur.jpg'; // Replace with your actual background image
 
 const matches = [
   {
