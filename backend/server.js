@@ -1,3 +1,4 @@
+
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
@@ -6,7 +7,9 @@ import authRoutes from './routes/authRoutes.js';
 import pkg from '@propelauth/node';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
+import cors from 'cors';
 import morgan from 'morgan';
+import fetch from 'node-fetch';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -29,6 +32,7 @@ const { validateAccessTokenAndGetUserClass } = initBaseAuth({
 
 // Security middlewares
 app.use(helmet()); // Adds various security headers to the response
+app.use(cors({ origin: 'https://your-allowed-origin.com' })); // Enables CORS for the specified origin
 app.use(morgan('combined')); // Logs HTTP requests
 
 // Rate limiting middleware to limit repeated requests to public APIs
